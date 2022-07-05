@@ -1,3 +1,4 @@
+// 下拉框账户 具体的账户内容
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -89,7 +90,7 @@ export default ({
     balance,
     defaultShowBalance,
     onSelectAccount,
-    onToggleShowBalance = () => {},
+    onToggleShowBalance = () => { },
     showBalanceInUSD
 }) => {
     const [showBalance, setShowBalance] = useState(defaultShowBalance);

@@ -166,7 +166,7 @@ class Routing extends Component {
             browserLanguage ||
             languages[0].code;
 
-        this.props.initialize({
+        this.props.initialize({//local redux 翻译
             languages,
             options: {
                 defaultLanguage: 'en',
@@ -190,6 +190,7 @@ class Routing extends Component {
         });
 
         // TODO: Figure out how to load only necessary translations dynamically
+        // react-localize-redux-docs
         this.props.addTranslationForLanguage(translations_en, 'en');
         this.props.addTranslationForLanguage(translations_it, 'it');
         this.props.addTranslationForLanguage(translations_pt, 'pt');
@@ -224,6 +225,7 @@ class Routing extends Component {
         handleRefreshUrl(router);
         refreshAccount();
 
+        // 初始化变量 history侦听
         history.listen(async () => {
             handleRedirectUrl(this.props.router.location);
             handleClearUrl();
@@ -269,10 +271,11 @@ class Routing extends Component {
     };
 
     startPollingTokenFiatValue = () => {
+        // 每30秒执行一次 
         const { fetchTokenFiatValues, account } = this.props;
 
         const handlePollTokenFiatValue = async () => {
-            await fetchTokenFiatValues({ accountId: account.accountId }).catch(() => {});
+            await fetchTokenFiatValues({ accountId: account.accountId }).catch(() => { });
             if (this.pollTokenFiatValue) {
                 this.pollTokenFiatValue = setTimeout(
                     () => handlePollTokenFiatValue(),
@@ -341,13 +344,15 @@ class Routing extends Component {
                 >
                     <ThemeProvider theme={theme}>
                         <ScrollToTop />
-                        {SHOW_MIGRATION_BANNER && <MigrationBanner  account={account}/>}
-                        
+                        {SHOW_MIGRATION_BANNER && <MigrationBanner account={account} />}
+
                         <NetworkBanner account={account} />
+                        {/* 最上测试网络横条 */}
                         <NavigationWrapper />
+                        {/* 导航栏 图标 button 翻译 wallet信息 */}
                         <GlobalAlert />
-                        <LedgerConfirmActionModal />
-                        <LedgerConnectModal />
+                        {/* <LedgerConfirmActionModal />
+                        <LedgerConnectModal /> */}
                         {account.requestPending !== null && (
                             <TwoFactorVerifyModal
                                 onClose={(verified, error) => {
@@ -381,6 +386,7 @@ class Routing extends Component {
                                     search: search,
                                 }}
                             />
+                            {/* 任何其他路径都redirect到/ */}
                             <GuestLandingRoute
                                 exact
                                 path="/"
@@ -394,11 +400,11 @@ class Routing extends Component {
                                 accountFound={accountFound}
                                 indexBySearchEngines={!accountFound}
                             />
-                            <Route
+                            {/* <Route
                                 exact
                                 path="/linkdrop/:fundingContract/:fundingKey"
                                 component={LinkdropLandingWithRouter}
-                            />
+                            /> */}
                             <Route
                                 exact
                                 path="/create/:fundingContract/:fundingKey"
@@ -416,7 +422,7 @@ class Routing extends Component {
                                         <CreateAccountLanding />
                                     )
                                 }
-                                // Logged in users always create a named account
+                            // Logged in users always create a named account
                             />
                             <Route
                                 exact
@@ -445,11 +451,11 @@ class Routing extends Component {
                                 path="/setup-passphrase-new-account"
                                 component={SetupPassphraseNewAccountWrapper}
                             />
-                            <PublicRoute
+                            {/* <PublicRoute
                                 exact
                                 path="/setup-ledger-new-account"
                                 component={SetupLedgerNewAccountWrapper}
-                            />
+                            /> */}
                             <PublicRoute
                                 exact
                                 path="/create-implicit-account"
@@ -480,7 +486,7 @@ class Routing extends Component {
                                 path="/fund-create-account/:accountId/:implicitAccountId/:recoveryMethod"
                                 component={SetupImplicitWithRouter}
                             />
-                            <Route
+                            {/* <Route
                                 exact
                                 path="/setup-ledger/:accountId"
                                 component={SetupLedgerWithRouter}
@@ -489,7 +495,7 @@ class Routing extends Component {
                                 exact
                                 path="/setup-ledger-success"
                                 component={SetupLedgerSuccessWithRouter}
-                            />
+                            /> */}
                             <PrivateRoute
                                 exact
                                 path="/enable-two-factor"
@@ -563,8 +569,8 @@ class Routing extends Component {
                                     );
                                 }}
                             />
-                            <Route exact path="/batch-import" render={(({location}) => {
-                                let { keys, accounts, ledgerHdPaths } = parse(location.hash, {arrayFormat: 'comma'});
+                            {/* <Route exact path="/batch-import" render={(({ location }) => {
+                                let { keys, accounts, ledgerHdPaths } = parse(location.hash, { arrayFormat: 'comma' });
                                 if (!keys || !accounts) {
                                     return <PageNotFound />;
                                 }
@@ -575,12 +581,12 @@ class Routing extends Component {
                                 ledgerHdPaths = Array.isArray(ledgerHdPaths) ? ledgerHdPaths : [ledgerHdPaths];
 
                                 const accountIdToKeyMap = accounts.reduce((acc, curr) => {
-                                    const [ accountId, keyIndex, ledgerHdPathIndex ] = curr.split('*');
-                                    return { ...acc, [accountId]: {key: keys[keyIndex], ledgerHdPath: ledgerHdPaths?.[ledgerHdPathIndex]} };
+                                    const [accountId, keyIndex, ledgerHdPathIndex] = curr.split('*');
+                                    return { ...acc, [accountId]: { key: keys[keyIndex], ledgerHdPath: ledgerHdPaths?.[ledgerHdPathIndex] } };
                                 }, {});
-                                return <BatchImportAccounts accountIdToKeyMap={accountIdToKeyMap} onCancel={() => this.props.history.replace('/')}/>;
-                            })} />
-                            <Route
+                                return <BatchImportAccounts accountIdToKeyMap={accountIdToKeyMap} onCancel={() => this.props.history.replace('/')} />;
+                            })} /> */}
+                            {/* <Route
                                 exact
                                 path="/batch-ledger-export"
                                 component={BatchLedgerExport}
@@ -589,7 +595,7 @@ class Routing extends Component {
                                 exact
                                 path="/sign-in-ledger"
                                 component={SignInLedgerWrapper}
-                            />
+                            /> */}
                             <PrivateRoute
                                 path="/login"
                                 component={LoginWrapper}
@@ -623,16 +629,16 @@ class Routing extends Component {
                                 path="/receive-money"
                                 component={ReceiveContainerWrapper}
                             />
-                            <PrivateRoute
+                            {/* <PrivateRoute
                                 exact
                                 path="/buy"
                                 component={BuyNear}
-                            />
-                            <PrivateRoute
+                            /> */}
+                            {/* <PrivateRoute
                                 exact
                                 path="/swap"
                                 component={Swap}
-                            />
+                            /> */}
                             <Route
                                 exact
                                 path="/profile/:accountId"
@@ -648,14 +654,14 @@ class Routing extends Component {
                                 path="/sign"
                                 component={SignWrapper}
                             />
-                            <PrivateRoute
+                            {/* <PrivateRoute
                                 path="/staking"
                                 render={() => (
                                     <StakingContainer
                                         history={this.props.history}
                                     />
                                 )}
-                            />
+                            /> */}
                             <Route
                                 exact
                                 path="/cli-login-success"
@@ -686,6 +692,7 @@ class Routing extends Component {
 Routing.propTypes = {
     history: PropTypes.object.isRequired,
 };
+// ensures that the passed value is of the correct datatype.  必须是object
 
 const mapDispatchToProps = {
     refreshAccount,
@@ -701,10 +708,12 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => ({
+    // 从redux里读取状态state  useSelector是hook形式的提取状态 useDispatch()是hook形式的dispatch
     account: selectAccountSlice(state),
     router: getRouter(state),
 });
 
+// withLocalize(Routing)是 localize的redux的函数 翻译功能
 export default connect(
     mapStateToProps,
     mapDispatchToProps

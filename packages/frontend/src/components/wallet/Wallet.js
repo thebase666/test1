@@ -325,7 +325,8 @@ export function Wallet({
         >
             <div className="split">
                 <div className="left">
-                    <div className="tab-selector">
+                    {/* 删除tab 和nft tab可以用作其他功能 */}
+                    {/* <div className="tab-selector">
                         <div
                             className={classNames([
                                 'tab-balances',
@@ -344,8 +345,19 @@ export function Wallet({
                         >
                             <Translate id="wallet.collectibles" />
                         </div>
+                    </div> */}
+                    <div>
+                        <FungibleTokens
+                            currentLanguage={currentLanguage}
+                            totalAmount={totalAmount}
+                            balance={balance}
+                            tokensLoading={tokensLoading}
+                            fungibleTokens={fungibleTokensList}
+                            accountExists={accountExists}
+                            fungibleTokensList={fungibleTokensList}
+                        />
                     </div>
-                    {tab === 'collectibles' ? (
+                    {/* {tab === 'collectibles' ? (
                         <NFTs tokens={sortedNFTs} />
                     ) : (
                         <FungibleTokens
@@ -357,7 +369,7 @@ export function Wallet({
                             accountExists={accountExists}
                             fungibleTokensList={fungibleTokensList}
                         />
-                    )}
+                    )} */}
                 </div>
                 <div className="right">
                     {accountExists ? (
@@ -368,6 +380,7 @@ export function Wallet({
                     <ActivitiesWrapper />
                 </div>
             </div>
+            {/* 根据条件弹框  */}
             {linkdropAmount !== '0' && (
                 <LinkDropSuccessModal
                     onClose={handleCloseLinkdropModal}
@@ -418,7 +431,7 @@ const FungibleTokens = ({
         <>
             <div className='total-balance'>
                 <Textfit mode='single' max={48}>
-                    <AllTokensTotalBalanceUSD allFungibleTokens={fungibleTokensList}/>
+                    <AllTokensTotalBalanceUSD allFungibleTokens={fungibleTokensList} />
                 </Textfit>
             </div>
             <div className="sub-title balance">
@@ -492,7 +505,7 @@ const FungibleTokens = ({
                         tokens={fungibleTokens}
                         currentLanguage={currentLanguage}
                     />
-                    <div className='coingecko'><Translate id='poweredByCoinGecko'/></div>
+                    <div className='coingecko'><Translate id='poweredByCoinGecko' /></div>
                 </>
             )}
         </>

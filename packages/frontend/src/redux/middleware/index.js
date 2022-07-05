@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser';
+// import * as Sentry from '@sentry/browser';
 import { routerMiddleware } from 'connected-react-router';
 import { applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
@@ -32,7 +32,7 @@ const readyStatePromise = (store) => (next) => (action) => {
         },
         (error) => {
             console.warn('Error in background action:', error);
-            Sentry.captureException(error);
+            // Sentry.captureException(error);
             next(makeAction(true, { error: true, payload: error }));
             throw error;
         }

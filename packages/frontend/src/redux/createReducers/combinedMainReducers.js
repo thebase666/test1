@@ -21,8 +21,8 @@ import transactionsSlice from '../slices/transactions';
 export default (history) => ({
     // shared reducers
     localize: localizeReducer,
-    router: connectRouter(history),
-    [tokenFiatValuesSlice.name]: tokenFiatValuesSlice.reducer,
+    router: connectRouter(history),//把路由放到redux
+    [tokenFiatValuesSlice.name]: tokenFiatValuesSlice.reducer,//这个是normal形式的redux
     // account reducers
     allAccounts,
     account,

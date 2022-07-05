@@ -107,22 +107,22 @@ const Container = styled.div`
 const NavLinks = () => (
     <Container className='nav-links'>
         <NavLink exact to='/' activeClassName='selected' onClick={() => Mixpanel.track('Click Wallet button on nav')}>
-            <WalletIcon/>
-            <Translate id='link.wallet'/>
+            <WalletIcon />
+            <Translate id='link.wallet' />
         </NavLink>
-        <NavLink data-test-id="staking_navlink" to='/staking' activeClassName='selected' onClick={() => Mixpanel.track('Click Staking button on nav')}>
+        {/* <NavLink data-test-id="staking_navlink" to='/staking' activeClassName='selected' onClick={() => Mixpanel.track('Click Staking button on nav')}>
             <VaultIcon/>
             <Translate id='link.staking'/>
-        </NavLink>
+        </NavLink> */}
         <NavLink to='/profile' className='account-details-link' activeClassName='selected' onClick={() => Mixpanel.track('Click Account button on nav')}>
-            <UserIcon/>
-            <Translate id='link.account'/>
+            <UserIcon />
+            <Translate id='link.account' />
         </NavLink>
         <a href='https://nearhelp.zendesk.com/' target='_blank' rel='noopener noreferrer' onClick={() => Mixpanel.track('Click Help button on nav')}>
-            <HelpIcon/>
-            <Translate id='link.help'/>
+            <HelpIcon />
+            <Translate id='link.help' />
         </a>
-        {DONATE_TO_UKRAINE && (
+        {/* {DONATE_TO_UKRAINE && (
             <NavLink
                 to={`/send-money/${IS_MAINNET ? 'ukraine' : 'ukraine.testnet'}`}
                 activeClassName="selected"
@@ -131,7 +131,7 @@ const NavLinks = () => (
                 <DonateToUkraineIcon />
                 <Translate id="link.donateToUkraine" />
             </NavLink>
-        )}
+        )} */}
     </Container>
 );
 

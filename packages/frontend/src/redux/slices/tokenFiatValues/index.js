@@ -11,9 +11,9 @@ import initialStatusState from '../../reducerStatus/initialState/initialStatusSt
 import { getCachedContractMetadataOrFetch } from '../tokensMetadata';
 
 const SLICE_NAME = 'tokenFiatValues';
-const fiatValueManager = new FiatValueManager();
+const fiatValueManager = new FiatValueManager();//api
 
-const fetchCoinGeckoFiatValues = createAsyncThunk(
+const fetchCoinGeckoFiatValues = createAsyncThunk(//获取near的市场价
     `${SLICE_NAME}/fetchCoinGeckoFiatValues`,
     async (values) => fiatValueManager.fetchCoinGeckoPrices(values)
 );
@@ -23,7 +23,7 @@ const fetchRefFinanceFiatValues = createAsyncThunk(
 );
 const fetchTokenFiatValues = createAsyncThunk(
     `${SLICE_NAME}/fetchTokenFiatValues`,
-    async ({accountId}, {dispatch, getState}) => {
+    async ({ accountId }, { dispatch, getState }) => {
         const ownedTokens = [];
         if (accountId) {
             const likelyContracts = await FungibleTokens.getLikelyTokenContracts({ accountId });
@@ -32,7 +32,7 @@ const fetchTokenFiatValues = createAsyncThunk(
                 try {
                     const metadata = await getCachedContractMetadataOrFetch(contractName, getState());
                     symbol = metadata.symbol;
-                } finally { 
+                } finally {
                     if (symbol) {
                         ownedTokens.push(symbol);
                     }
@@ -60,6 +60,7 @@ const initialState = {
 const tokenFiatValuesSlice = createSlice({
     name: SLICE_NAME,
     initialState,
+    // extraReducers when you are dealing with an action that you have already defined somewhere else. The most common examples are responding to a createAsyncThunk action and responding to an action from another slice.
     extraReducers: ((builder) => {
         builder.addCase(getTokenWhiteList.fulfilled, (state, action) => {
             state.tokenWhiteList = action.payload;
@@ -71,10 +72,10 @@ const tokenFiatValuesSlice = createSlice({
             ),
             (state, action) => {
                 mergeWith(state.tokens, action.payload, (previous, fetched) =>
-                        fetched?.last_updated_at > previous?.last_updated_at &&
+                    fetched?.last_updated_at > previous?.last_updated_at &&
                         !isEqual(omit(fetched, 'last_updated_at'), omit(previous, 'last_updated_at'))
-                            ? fetched
-                            : previous
+                        ? fetched
+                        : previous
                 );
             }
         );
@@ -113,4 +114,4 @@ export const selectUSDNTokenFiatValueUSD = createSelector(
 );
 
 export const selectTokensFiatValueUSD = createSelector(selectAllTokenFiatValues, ({ tokens }) => tokens || {});
-export const selectTokenWhiteList = createSelector(selectAllTokenFiatValues, ({tokenWhiteList}) => tokenWhiteList || []);
+export const selectTokenWhiteList = createSelector(selectAllTokenFiatValues, ({ tokenWhiteList }) => tokenWhiteList || []);

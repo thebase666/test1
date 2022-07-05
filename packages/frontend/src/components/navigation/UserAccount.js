@@ -64,13 +64,14 @@ const Container = styled.div`
 `;
 
 const UserAccount = ({ accountId = '', onClick, withIcon = true, flowLimitationSubMenu }) => (
-    <Container className={classNames(['user-account', {'no-click' : flowLimitationSubMenu }])} onClick={onClick}>
-        {withIcon && <UserIcon color='#A2A2A8'/>}
+    <Container className={classNames(['user-account', { 'no-click': flowLimitationSubMenu }])} onClick={onClick}>
+        {withIcon && <UserIcon color='#A2A2A8' />}
         <div className="account-wrapper" data-test-id="currentUser">
             {accountId}
         </div>
         <div className='icon-wrapper'>
-            <ChevronIcon/>
+            <ChevronIcon />
+            {/* 下拉标签 */}
         </div>
     </Container>
 );

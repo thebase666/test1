@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { 
+import {
     actions as ledgerActions,
     selectLedgerConnectionModalType,
     selectLedgerConnectionStatusLoading
@@ -24,7 +24,7 @@ const LedgerConnectModal = () => {
     const connect = () => dispatch(handleConnectLedger());
     const cancel = () => dispatch(setLedgerConnectionModalType({ type: undefined }));
 
-    return modalType
+    return true
         ? (
             <Modal
                 id='ledger-connect-modal'

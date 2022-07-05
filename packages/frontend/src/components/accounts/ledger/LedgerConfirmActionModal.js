@@ -16,24 +16,24 @@ const LedgerConfirmActionModal = () => {
             <Modal
                 id='ledger-confirm-action-modal'
                 closeButton='desktop'
-                onClose={() => {}}
+                onClose={() => { }}
             >
-                <ModalTheme/>
+                <ModalTheme />
                 {!txSigned
                     ? (
                         <>
                             <h2 className='title'>
-                                <Translate id={'confirmLedgerModal.header.confirm'}/>
+                                <Translate id={'confirmLedgerModal.header.confirm'} />
                             </h2>
-                            <LedgerImage animate={true}/>
-                            <p><Translate id={modal.textId}/></p>
+                            <LedgerImage animate={true} />
+                            <p><Translate id={modal.textId} /></p>
                         </>
                     ) : (
                         <>
                             <h2 className='title dots'>
-                                <Translate id={'confirmLedgerModal.header.processing'}/>
+                                <Translate id={'confirmLedgerModal.header.processing'} />
                             </h2>
-                            <LedgerImage animate={false}/>
+                            <LedgerImage animate={false} />
                         </>
                     )
                 }

@@ -1,3 +1,4 @@
+// 下拉框的账户 可以多账户
 import React from 'react';
 import { Translate } from 'react-localize-redux';
 import styled from 'styled-components';
@@ -79,6 +80,7 @@ export default ({
     return (
         <StyledContainer className='pg-20 brs-8 bsw-l account-selector'>
             <div className='accounts'>
+                {/* 下拉框的账户 可以多账户 */}
                 <Account
                     accountId={signedInAccountId}
                     balance={accountsBalances && accountsBalances[signedInAccountId]?.balanceAvailable}
