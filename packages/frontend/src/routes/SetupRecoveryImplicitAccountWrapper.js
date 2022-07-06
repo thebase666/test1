@@ -38,7 +38,7 @@ export function SetupRecoveryImplicitAccountWrapper() {
         setSeedPhrasePublicKey(publicKey);
     };
 
-    if (!showVerifyEmailCode) {
+    if (true) {
         return (
             <SetupRecoveryImplicitAccount
                 email={email}
@@ -61,50 +61,50 @@ export function SetupRecoveryImplicitAccountWrapper() {
         );
     }
 
-    return (
-        <EnterVerificationCode
-            isNewAccount={true}
-            skipRecaptcha={true}
-            option='email'
-            email={email}
-            onConfirm={async (securityCode) => {
-                Mixpanel.track('SR Verify email code');
-                try {
-                    setVerifyingEmailCode(true);
-                    await wallet.validateSecurityCodeNewImplicitAccount(implicitAccountId, { kind: 'email', detail: email }, securityCode, seedPhrasePublicKey);
-                    await dispatch(saveAccount(implicitAccountId, recoveryKeyPair));
-                } catch (e) {
-                    dispatch(showCustomAlert({
-                        success: false,
-                        messageCodeHeader: 'error',
-                        messageCode: 'setupRecoveryMessageNewAccount.invalidCode',
-                        errorMessage: e.message
-                    }));
-                    throw e;
-                } finally {
-                    setVerifyingEmailCode(false);
-                }
+    // return (
+    //     <EnterVerificationCode
+    //         isNewAccount={true}
+    //         skipRecaptcha={true}
+    //         option='email'
+    //         email={email}
+    //         onConfirm={async (securityCode) => {
+    //             Mixpanel.track('SR Verify email code');
+    //             try {
+    //                 setVerifyingEmailCode(true);
+    //                 await wallet.validateSecurityCodeNewImplicitAccount(implicitAccountId, { kind: 'email', detail: email }, securityCode, seedPhrasePublicKey);
+    //                 await dispatch(saveAccount(implicitAccountId, recoveryKeyPair));
+    //             } catch (e) {
+    //                 dispatch(showCustomAlert({
+    //                     success: false,
+    //                     messageCodeHeader: 'error',
+    //                     messageCode: 'setupRecoveryMessageNewAccount.invalidCode',
+    //                     errorMessage: e.message
+    //                 }));
+    //                 throw e;
+    //             } finally {
+    //                 setVerifyingEmailCode(false);
+    //             }
 
-                try {
-                    await wallet.importZeroBalanceAccount(implicitAccountId, recoveryKeyPair);
-                    dispatch(redirectTo('/'));
-                } catch (e) {
-                    dispatch(showCustomAlert({
-                        success: false,
-                        messageCodeHeader: 'error',
-                        messageCode: 'walletErrorCodes.recoverAccountSeedPhrase.errorNotAbleToImportAccount',
-                        errorMessage: e.message
-                    }));
-                }
-            }}
-            onGoBack={() => setShowVerifyEmailCode(false)}
-            onResend={async () => {
-                setResendingEmailCode(true);
-                await handleInititalizeEmailRecoveryLink();
-                setResendingEmailCode(false);
-            }}
-            reSending={resendingEmailCode}
-            verifyingCode={verifyingEmailCode}
-        />
-    );
+    //             try {
+    //                 await wallet.importZeroBalanceAccount(implicitAccountId, recoveryKeyPair);
+    //                 dispatch(redirectTo('/'));
+    //             } catch (e) {
+    //                 dispatch(showCustomAlert({
+    //                     success: false,
+    //                     messageCodeHeader: 'error',
+    //                     messageCode: 'walletErrorCodes.recoverAccountSeedPhrase.errorNotAbleToImportAccount',
+    //                     errorMessage: e.message
+    //                 }));
+    //             }
+    //         }}
+    //         onGoBack={() => setShowVerifyEmailCode(false)}
+    //         onResend={async () => {
+    //             setResendingEmailCode(true);
+    //             await handleInititalizeEmailRecoveryLink();
+    //             setResendingEmailCode(false);
+    //         }}
+    //         reSending={resendingEmailCode}
+    //         verifyingCode={verifyingEmailCode}
+    //     />
+    // );
 }

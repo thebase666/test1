@@ -413,22 +413,26 @@ class Routing extends Component {
                             <Route
                                 exact
                                 path="/create"
-                                render={(props) =>
-                                    accountFound || !DISABLE_CREATE_ACCOUNT ? (
-                                        <CreateAccountWithRouter
-                                            {...props}
-                                        />
-                                    ) : (
-                                        <CreateAccountLanding />
-                                    )
-                                }
+                                // render={(props) =>
+                                //     accountFound || !DISABLE_CREATE_ACCOUNT ? (
+                                //         <CreateAccountWithRouter
+                                //             {...props}
+                                //         />
+                                //     ) : (
+                                //         <CreateAccountLanding />
+                                //     )
+                                // }
+                                render={() => (
+                                    <CreateAccountLanding />
+                                )}
                             // Logged in users always create a named account
                             />
-                            <Route
+                            {/* 这个create 显示的不一样  */}
+                            {/* <Route
                                 exact
                                 path="/create"
                                 component={CreateAccountWithRouter}
-                            />
+                            /> */}
                             <Route
                                 exact
                                 path={'/create-from/:fundingAccountId'}
@@ -439,6 +443,7 @@ class Routing extends Component {
                                 path="/set-recovery/:accountId/:fundingContract?/:fundingKey?"
                                 component={SetupRecoveryMethodWithRouter}
                             />
+                            {/* 创建账户用的方式 也有邮箱验证 */}
                             <PublicRoute
                                 exact
                                 path="/set-recovery-implicit-account"
@@ -446,6 +451,7 @@ class Routing extends Component {
                                     SetupRecoveryImplicitAccountWrapper
                                 }
                             />
+                            {/* 12 seed 页面 注册页面 */}
                             <PublicRoute
                                 exact
                                 path="/setup-passphrase-new-account"

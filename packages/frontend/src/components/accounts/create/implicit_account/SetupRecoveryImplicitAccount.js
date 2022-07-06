@@ -57,22 +57,22 @@ export default ({
                 e.preventDefault();
             }}>
                 <h1><Translate id='setupRecovery.header' /></h1>
-                <h2><Translate id='setupRecovery.subHeader' /></h2>
-                <h4>
+                {/* <h2><Translate id='setupRecovery.subHeader' /></h2> */}
+                {/* <h4>
                     <Translate id='setupRecovery.advancedSecurity' />
                     <Tooltip translate='profile.security.mostSecureDesc' icon='icon-lg' />
-                </h4>
+                </h4> */}
                 <RecoveryOption
                     onClick={() => setRecoveryOption('phrase')}
                     option='phrase'
                     active={recoveryOption}
                 />
-                <RecoveryOption
+                {/* <RecoveryOption
                     onClick={() => setRecoveryOption('ledger')}
                     option='ledger'
                     active={recoveryOption}
-                />
-                <h4>
+                /> */}
+                {/* <h4>
                     <Translate id='setupRecovery.basicSecurity' />
                     <Tooltip translate='profile.security.lessSecureDesc' icon='icon-lg' />
                 </h4>
@@ -97,7 +97,7 @@ export default ({
                             />
                         )}
                     </Translate>
-                </RecoveryOption>
+                </RecoveryOption> */}
                 <FormButton
                     color='blue'
                     type='submit'

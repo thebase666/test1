@@ -24,7 +24,7 @@ const LedgerConnectModal = () => {
     const connect = () => dispatch(handleConnectLedger());
     const cancel = () => dispatch(setLedgerConnectionModalType({ type: undefined }));
 
-    return true
+    return modalType
         ? (
             <Modal
                 id='ledger-connect-modal'
